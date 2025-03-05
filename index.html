@@ -48,15 +48,18 @@
   <div class="container">
     <h1>Progress Chef Courier</h1>
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
+    <p id="machine-message">Detecting machine...</p>
   </div>
-      <script>
-            .then(response => response.text())
-            .then(message => {
-                document.getElementById("machine-message").innerText = message.trim();
-            })
-            .catch(error => {
-                document.getElementById("machine-message").innerText = "Error detecting machine";
-            });
-    </script>
+  <script>
+    // Fetch the machine message from the local file
+    fetch('/machine_info.txt')
+      .then(response => response.text())
+      .then(message => {
+        document.getElementById("machine-message").innerText = message.trim();
+      })
+      .catch(error => {
+        document.getElementById("machine-message").innerText = "Error detecting machine";
+      });
+  </script>
 </body>
 </html>
