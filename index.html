@@ -50,16 +50,13 @@
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
   </div>
       <script>
-        // Hardcoded machine messages
-        var hostname = window.location.hostname; // Get the machine's hostname/IP
-        
-        if (hostname === "172.31.1.65") {
-            document.getElementById("machine-message").innerText = "Welcome to machine 1";
-        } else if (hostname === "172.31.14.194") {
-            document.getElementById("machine-message").innerText = "Welcome to machine 2";
-        } else {
-            document.getElementById("machine-message").innerText = "Unknown machine";
-        }
+            .then(response => response.text())
+            .then(message => {
+                document.getElementById("machine-message").innerText = message.trim();
+            })
+            .catch(error => {
+                document.getElementById("machine-message").innerText = "Error detecting machine";
+            });
     </script>
 </body>
 </html>
