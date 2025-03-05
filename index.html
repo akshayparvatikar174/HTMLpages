@@ -48,19 +48,7 @@
   <div class="container">
     <h1>Progress Chef Courier</h1>
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
-    <p id="machine-message">Loading machine info...</p>
+    <p id="machine-message">{{MACHINE_MESSAGE}}</p>
   </div>
-
-    <script>
-    fetch('/machine_info.txt')
-      .then(response => response.text())
-      .then(message => {
-        document.getElementById("machine-message").innerText = message.trim();
-      })
-      .catch(error => {
-        console.error('Error fetching machine message:', error);
-        document.getElementById("machine-message").innerText = "Error fetching machine message";
-      });
-  </script>
 </body>
 </html>
