@@ -52,17 +52,16 @@
   </div>
 <script>
   fetch('/file-list')
-    .then(response => response.text())
-    .then(data => {
-      const fileList = data.split("\n").filter(file => file.trim() !== "");
+    .then(response => response.json())  // Now expects JSON output
+    .then(files => {
       const fileContainer = document.createElement("div");
       fileContainer.innerHTML = "<h2>Files in /home/polyfil</h2>";
 
-      if (fileList.length === 0) {
+      if (files.length === 0) {
         fileContainer.innerHTML += "<p>No files found.</p>";
       } else {
         const ul = document.createElement("ul");
-        fileList.forEach(file => {
+        files.forEach(file => {
           const li = document.createElement("li");
           li.textContent = file;
           ul.appendChild(li);
