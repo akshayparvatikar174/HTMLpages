@@ -50,5 +50,22 @@
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
     <p id="machine-message">{{MACHINE_MESSAGE}}</p>
   </div>
+    <script>
+    fetch('/file-list')
+      .then(response => response.json())
+      .then(files => {
+        const fileList = document.getElementById("file-list");
+        fileList.innerHTML = "";
+        files.forEach(file => {
+          let li = document.createElement("li");
+          li.textContent = file;
+          fileList.appendChild(li);
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching file list:', error);
+        document.getElementById("file-list").innerText = "Error loading files";
+      });
+  </script>
 </body>
 </html>
