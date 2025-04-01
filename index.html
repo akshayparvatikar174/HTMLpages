@@ -58,50 +58,33 @@
   <div class="container">
     <h1>Progress Chef Courier</h1>
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
-    <p id="machine-message">Loading message...</p>
+    <p id="machine-message"></p>
   </div>
 
 <script>
-  // Simulate retrieving the IP from a server-side variable or API
-  const ipAddress = "54.219.227.136";  // Example IP for testing
-
-  // Replace message based on IP address
-  const messageElement = document.getElementById("machine-message");
-
-  if (ipAddress === "13.57.24.134") {
-    messageElement.textContent = "Production Machine - Prod 001";
-  } else if (ipAddress === "54.193.105.233") {
-    messageElement.textContent = "Staging Machine - Stag 001";
-  } else if (ipAddress === "54.219.227.136") {
-    messageElement.textContent = "Staging Machine - Stag 002";
-  } else {
-    messageElement.textContent = "Unknown Machine";
+  async function getIpAddress() {
+    try {
+      const response = await fetch('https://api.ipify.org?format=json');
+      const data = await response.json();
+      return data.ip;
+    } catch (error) {
+      console.error('Error fetching IP address:', error);
+      return null;
+    }
   }
 
-  // Fetch file list as per your original request
-  fetch('/file-list')
-    .then(response => response.json())  // Now expects JSON output
-    .then(files => {
-      const fileContainer = document.createElement("div");
-      fileContainer.innerHTML = "<h2>Files in /home/polyfil</h2>";
+  async function setMachineMessage() {
+    const ipAddress = await getIpAddress();
+    const messageElement = document.getElementById("machine-message");
 
-      if (files.length === 0) {
-        fileContainer.innerHTML += "<p>No files found.</p>";
-      } else {
-        const ul = document.createElement("ul");
-        files.forEach(file => {
-          const li = document.createElement("li");
-          li.textContent = file;
-          ul.appendChild(li);
-        });
-        fileContainer.appendChild(ul);
-      }
+    if (ipAddress === "13.57.24.134" || ipAddress === "172.31.15.184") {
+      messageElement.textContent = "Production Machine - Prod 001";
+    } else {
+      messageElement.textContent = ""; // Hides the message for other IPs
+    }
+  }
 
-      document.body.appendChild(fileContainer);
-    })
-    .catch(error => {
-      console.error('Error fetching file list:', error);
-    });
+  setMachineMessage();
 </script>
 </body>
 </html>
