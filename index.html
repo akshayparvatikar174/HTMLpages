@@ -58,9 +58,22 @@
   <div class="container">
     <h1>Progress Chef Courier</h1>
     <h2>WHATEVER, WHEREVER, WHENEVER</h2>
-    <p id="machine-message">{{MACHINE_MESSAGE}}</p>
+    <p id="machine-message">Loading message...</p>
   </div>
+
 <script>
+  // Simulate retrieving the IP from a server-side variable or API
+  const ipAddress = "54.219.227.136";  // Example IP for testing
+
+  // Replace message based on IP address
+  const messageElement = document.getElementById("machine-message");
+  if (ipAddress === "54.219.227.136") {
+    messageElement.textContent = "Production Machine - 001";
+  } else {
+    messageElement.textContent = "Unknown Machine";
+  }
+
+  // Fetch file list as per your original request
   fetch('/file-list')
     .then(response => response.json())  // Now expects JSON output
     .then(files => {
