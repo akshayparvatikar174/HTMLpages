@@ -67,8 +67,13 @@
 
   // Replace message based on IP address
   const messageElement = document.getElementById("machine-message");
-  if (ipAddress === "54.219.227.136") {
-    messageElement.textContent = "Production Machine - 001";
+
+  if (ipAddress === "13.57.24.134") {
+    messageElement.textContent = "Production Machine - Prod 001";
+  } else if (ipAddress === "54.193.105.233") {
+    messageElement.textContent = "Staging Machine - Stag 001";
+  } else if (ipAddress === "54.219.227.136") {
+    messageElement.textContent = "Staging Machine - Stag 002";
   } else {
     messageElement.textContent = "Unknown Machine";
   }
